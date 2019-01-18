@@ -1,17 +1,11 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-xs-12">
-        <h1>Trending Albums
-        </h1>
+      <div class="col-xs-12 com-sm-12 col-md-12">
+        <h1> Album Name: {{browseAlbum.albumname}} </h1>
       </div>
     </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-6 col-md-4">
-        <hr>
-      </div>
-    </div>
-    <div class="row all-songs">
+    <!-- <div class="row all-songs">
       <div
         class="col-xs-12 col-sm-4 col-md-3 card-deck"
         v-for="(x, i) in songs.length"
@@ -41,21 +35,15 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 export default {
   computed: {
-    songs () {
-      return this.$store.getters.songs
-    }
-  },
-  methods: {
-    navigateToBrowseAlbum (index) {
-      this.$store.state.browseAlbum = this.songs[index]
-      this.$router.push('/browsealbum')
+    browseAlbum () {
+      return this.$store.getters.browseAlbum
     }
   }
 }
@@ -64,12 +52,7 @@ export default {
 <style scoped>
 .container {
   margin: 90px 55px;
-}
-.all-songs {
   position: relative;
-  left: 9%;
-}
-.card-deck {
-  display: flex !important;
+  left: 5%;
 }
 </style>

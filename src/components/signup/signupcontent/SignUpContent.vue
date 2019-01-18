@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12">
-        <h3>Sign In
+        <h3>Sign Up
           <transition
             @enter="iconEnter"
             @css="false"
@@ -34,6 +34,16 @@
           <input
             type="password"
             placeholder="Enter Password"
+            class="form-control"
+            v-model="password"
+          >
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <input
+            type="password"
+            placeholder="Re-Enter Password"
             class="form-control"
             v-model="password"
           >
@@ -121,7 +131,6 @@ export default {
       this.show = !this.show
       this.disSubmit = !this.disSubmit
       this.$store.state.signInShow = false
-      this.$store.state.bottomSignInShow = false
       this.$store.dispatch('setUserEmail', this.email)
       this.$store.dispatch('setUserPassword', this.password)
       setTimeout(() => {

@@ -18,32 +18,57 @@
           </ul>
         </div>
         <div class="col-xs-12 col-sm-3 col-md-3 signin">
-          <h1>Sign In</h1>
-          <form>
-            <div class="form-group">
-              <input
-                type="email"
-                placeholder="Enter Email"
-                class="form-control"
-              >
-              <input
-                type="password"
-                placeholder="Enter Password"
-                class="form-control"
-                style="margin-top: 10px; margin-bottom: 10px;"
-              >
-              <div class="sub-btn">
+          <div v-if="bottomSignInShow">
+            <h1>Sign In</h1>
+            <form>
+              <div class="form-group">
+                <input
+                  type="email"
+                  placeholder="Enter Email"
+                  class="form-control"
+                >
+                <input
+                  type="password"
+                  placeholder="Enter Password"
+                  class="form-control"
+                  style="margin-top: 10px; margin-bottom: 10px;"
+                >
+                <div class="sub-btn">
+                  <button
+                    class="btn btn-success"
+                    type="submit"
+                  >Submit</button>
+                  <button
+                    class="btn btn-danger"
+                    type="button"
+                    @click="navigateToSignUp"
+                  >Register</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div v-else>
+            <div
+              class="row"
+              style="margin-top: 50px;"
+            >
+              <div class="col-xs-12 col-sm-4 col-md-4">
+                <img
+                  src="https://picsum.photos/200/300/?gravity=east"
+                  alt="user image"
+                  style="height: 50px; width: 50px; border-radius: 50%;"
+                >
+              </div>
+              <div class="col-xs-12 col-sm-8 col-md-8">
+                <p style="margin-bottom: 0;"> {{ userEmail }} </p>
+                <p style="color: #fff; margin-bottom: 0;">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                 <button
-                  class="btn btn-success"
-                  type="submit"
-                >Submit</button>
-                <button
-                  class="btn btn-danger"
-                  type="button"
-                >Register</button>
+                  class="btn btn-dark"
+                  @click="navigateToProfile"
+                >See More</button>
               </div>
             </div>
-          </form>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -90,7 +115,22 @@
 
 <script>
 export default {
-
+  methods: {
+    navigateToSignUp () {
+      this.$router.push('/signup')
+    },
+    navigateToProfile () {
+      this.$router.push('/profile')
+    }
+  },
+  computed: {
+    bottomSignInShow () {
+      return this.$store.getters.bottomSignInShow
+    },
+    userEmail () {
+      return this.$store.getters.userEmail
+    }
+  }
 }
 </script>
 

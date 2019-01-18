@@ -9,6 +9,8 @@ export const store = new Vuex.Store({
     userEmail: '',
     userPassword: '',
     signInShow: true,
+    bottomSignInShow: true,
+    browseAlbum: [],
     songs: [
       {
         name: 'hello',
@@ -75,6 +77,8 @@ export const store = new Vuex.Store({
     shop: state => state.shop,
     userEmail: state => state.userEmail,
     userPassword: state => state.userpassword,
-    signInShow: state => state.signInShow
+    signInShow: state => state.signInShow,
+    bottomSignInShow: state => state.bottomSignInShow,
+    browseAlbum: state => state.browseAlbum
   }
 })

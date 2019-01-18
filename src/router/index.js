@@ -8,7 +8,9 @@ import SeeMoreTrendingSongs from '@/components/seemore/SeeMoreTrendingSongs.vue'
 import SeeMoreTrendingAlbums from '@/components/seemore/SeeMoreTrendingAlbums.vue'
 import Shop from '@/components/shop/Shop.vue'
 import SignIn from '@/components/signin/SignIn.vue'
+import SignUp from '@/components/signup/SignUp.vue'
 import Profile from '@/components/userprofile/UserProfile.vue'
+import BrowseAlbum from '@/components/browsingalbum/BrowsingAlbum.vue'
 
 Vue.use(Router)
 
@@ -55,9 +57,19 @@ export default new Router({
       component: SignIn
     },
     {
+      path: '/signup',
+      name: 'SignUp',
+      component: SignUp
+    },
+    {
       path: '/profile',
       name: 'Profile',
       component: Profile
+    },
+    {
+      path: '/browsealbum',
+      name: 'BrowseAlbum',
+      component: BrowseAlbum
     }
   ]
 })
