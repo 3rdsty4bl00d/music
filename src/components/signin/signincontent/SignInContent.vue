@@ -120,6 +120,7 @@ export default {
     navigateToHome () {
       this.show = !this.show
       this.disSubmit = !this.disSubmit
+      this.$store.state.signInShow = false
       this.$store.dispatch('setUserEmail', this.email)
       this.$store.dispatch('setUserPassword', this.password)
       setTimeout(() => {

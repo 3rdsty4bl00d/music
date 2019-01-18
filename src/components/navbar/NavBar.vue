@@ -91,6 +91,12 @@
         >
           {{ navBar.navTitle }}
         </b-nav-item>
+        <b-nav-item
+          to="/signin"
+          v-if="signInShow"
+        >
+          Sign In
+        </b-nav-item>
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->
@@ -126,7 +132,16 @@
             <em>User</em>
           </template>
           <b-dropdown-item to="/profile">Profile</b-dropdown-item>
-          <b-dropdown-item href="#">Signout</b-dropdown-item>
+          <b-dropdown-item @click="navigateToHome">
+            Signout
+            <transition
+              @enter="userEnter"
+              @css="false"
+              appear
+            >
+              <i class="far fa-user-circle"></i>
+            </transition>
+          </b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
@@ -138,6 +153,7 @@
 import Velocity from 'velocity-animate'
 export default {
   data: () => ({
+    iconEnter: false,
     navBarIcons: [
       {
         navTitle: 'Home',
@@ -163,15 +179,24 @@ export default {
         navTitle: 'Shop',
         icon: 'fas fa-shopping-cart',
         link: '/shop'
-      },
-      {
-        navTitle: 'Sign In',
-        icon: 'fas fa-shopping-cart',
-        link: '/signin'
       }
     ]
   }),
+  computed: {
+    signInShow () {
+      return this.$store.getters.signInShow
+    }
+  },
   methods: {
+    userEnter (el, done) {
+      setTimeout(() => {
+        Velocity(el, {
+          rotateZ: '7200deg'
+        }, {
+          duration: 5000
+        })
+      }, 5000)
+    },
     sEnter (el, done) {
       Velocity(el,
         {
@@ -188,6 +213,13 @@ export default {
       )
     },
     navigateToSelf () {
+      this.$router.push('/')
+    },
+    navigateToHome () {
+      this.iconEnter = true
+      this.$store.state.signInShow = true
+      this.$store.dispatch('setUserEmail', null)
+      this.$store.dispatch('setUserPassword', null)
       this.$router.push('/')
     }
   }
