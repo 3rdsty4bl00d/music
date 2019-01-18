@@ -173,7 +173,7 @@ export default {
       {
         navTitle: 'Our Video',
         icon: 'fas fa-video',
-        link: '/'
+        link: '/video'
       },
       {
         navTitle: 'Shop',

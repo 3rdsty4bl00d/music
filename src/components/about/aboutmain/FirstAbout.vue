@@ -10,7 +10,7 @@
                 @css="false"
                 appear
               >
-                <h1>Who We Are?</h1>
+                <h1> {{ firstHeading }} </h1>
               </transition>
             </div>
           </div>
@@ -32,7 +32,7 @@
                 @css="false"
                 appear
               >
-                <p class="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt mollitia aperiam quod explicabo expedita harum labore ipsa non quidem ex. Quia saepe ad impedit similique adipisci! Hic officiis aliquid ipsum?</p>
+                <p class="text-justify"> {{ paraOne }} </p>
               </transition>
             </div>
           </div>
@@ -43,7 +43,7 @@
                 @css="false"
                 appear
               >
-                <p class="text-justify">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor magni voluptates illo nulla quae incidunt delectus itaque molestiae, sint nam veniam consectetur numquam iure maxime neque, qui laboriosam. Inventore, dicta.</p>
+                <p class="text-justify"> {{ paraTwo }} </p>
               </transition>
             </div>
           </div>
@@ -56,6 +56,13 @@
 <script>
 import Velocity from 'velocity-animate'
 export default {
+  data () {
+    return {
+      firstHeading: 'Who We Are?',
+      paraOne: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt mollitia aperiam quod explicabo expedita harum labore ipsa non quidem ex. Quia saepe ad impedit similique adipisci! Hic officiis aliquid ipsum?',
+      paraTwo: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor magni voluptates illo nulla quae incidunt delectus itaque molestiae, sint nam veniam consectetur numquam iure maxime neque, qui laboriosam. Inventore, dicta.'
+    }
+  },
   methods: {
     headEnter (el, done) {
       Velocity(el, 'fadeIn', {

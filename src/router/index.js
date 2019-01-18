@@ -11,6 +11,7 @@ import SignIn from '@/components/signin/SignIn.vue'
 import SignUp from '@/components/signup/SignUp.vue'
 import Profile from '@/components/userprofile/UserProfile.vue'
 import BrowseAlbum from '@/components/browsingalbum/BrowsingAlbum.vue'
+import OurVideo from '@/components/ourvideo/OurVideo.vue'
 
 Vue.use(Router)
 
@@ -70,6 +71,11 @@ export default new Router({
       path: '/browsealbum',
       name: 'BrowseAlbum',
       component: BrowseAlbum
+    },
+    {
+      path: '/video',
+      name: 'OurVideo',
+      component: OurVideo
     }
   ]
 })
