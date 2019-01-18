@@ -6,6 +6,8 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
   state: {
     shop: [],
+    userEmail: '',
+    userPassword: '',
     songs: [
       {
         name: 'hello',
@@ -43,6 +45,12 @@ export const store = new Vuex.Store({
     },
     removeToShop: (state, payload) => {
       state.shop.splice(payload, 1)
+    },
+    setEmail: (state, payload) => {
+      state.userEmail = payload
+    },
+    setPassword: (state, payload) => {
+      state.userPassword = payload
     }
   },
   actions: {
@@ -51,12 +59,20 @@ export const store = new Vuex.Store({
     },
     removeFromCart ({ commit }, payload) {
       commit('removeToShop', payload)
+    },
+    setUserEmail ({ commit }, payload) {
+      commit('setEmail', payload)
+    },
+    setUserPassword ({ commit }, payload) {
+      commit('setPassword', payload)
     }
   },
   getters: {
     songs (state) {
       return state.songs
     },
-    shop: state => state.shop
+    shop: state => state.shop,
+    userEmail: state => state.userEmail,
+    userPassword: state => state.userpassword
   }
 })

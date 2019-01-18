@@ -19,8 +19,10 @@
               'Album name: ' + fusionSongs[i].albumname
               + '\nArtist: ' + fusionSongs[i].artist
               + '\nGenre: ' + fusionSongs[i].genre
-              + '\nPrice: Rs ' + fusionSongs[i].price"
+              + '\nPrice: Rs ' + fusionSongs[i].price
+              + '\nCLICK TO ADD TO CART'"
           :title="'Song Title: ' + fusionSongs[i].name"
+          @click="addToShop(i)"
         >
         <div class="card-body">
           <p class="card-text"> {{ fusionSongs[i].name }} </p>
@@ -47,6 +49,11 @@ export default {
   computed: {
     songs () {
       return this.$store.getters.songs
+    }
+  },
+  methods: {
+    addToShop (index) {
+      this.$store.dispatch('addToCart', index)
     }
   }
 }

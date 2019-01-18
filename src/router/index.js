@@ -7,6 +7,8 @@ import About from '@/components/about/About.vue'
 import SeeMoreTrendingSongs from '@/components/seemore/SeeMoreTrendingSongs.vue'
 import SeeMoreTrendingAlbums from '@/components/seemore/SeeMoreTrendingAlbums.vue'
 import Shop from '@/components/shop/Shop.vue'
+import SignIn from '@/components/signin/SignIn.vue'
+import Profile from '@/components/userprofile/UserProfile.vue'
 
 Vue.use(Router)
 
@@ -46,6 +48,16 @@ export default new Router({
       path: '/shop',
       name: 'Shop',
       component: Shop
+    },
+    {
+      path: '/signin',
+      name: 'SignIn',
+      component: SignIn
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: Profile
     }
   ]
 })

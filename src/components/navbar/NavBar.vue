@@ -125,7 +125,7 @@
           <template slot="button-content">
             <em>User</em>
           </template>
-          <b-dropdown-item href="#">Profile</b-dropdown-item>
+          <b-dropdown-item to="/profile">Profile</b-dropdown-item>
           <b-dropdown-item href="#">Signout</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
@@ -163,6 +163,11 @@ export default {
         navTitle: 'Shop',
         icon: 'fas fa-shopping-cart',
         link: '/shop'
+      },
+      {
+        navTitle: 'Sign In',
+        icon: 'fas fa-shopping-cart',
+        link: '/signin'
       }
     ]
   }),
