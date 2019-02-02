@@ -53,70 +53,95 @@
       </form>
     </div>
   </nav> -->
-
-  <b-navbar
-    toggleable="md"
-    type="dark"
-    variant="dark"
-    fixed="top"
-  >
-
-    <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-
-    <b-navbar-brand href="#">
-      <img
-        src="@/assets/sacmusic.jpg"
-        class="d-inline-block align-top sac-logo"
-        alt="BV"
-        style="height: 50px; width: 50px;"
-      >
-      <span
-        style="position: relative; top: 10px; left: -40px;"
-        @click="navigateToSelf"
-      >
-        Sac Music
-      </span>
-    </b-navbar-brand>
-
-    <b-collapse
-      is-nav
-      id="nav_collapse"
+  <div>
+    <b-navbar
+      toggleable="md"
+      type="dark"
+      variant="dark"
+      fixed="top"
     >
 
-      <b-navbar-nav>
-        <b-nav-item
-          :to="navBar.link"
-          v-for="navBar in navBarIcons"
-          :key="navBar.navTitle"
-        >
-          {{ navBar.navTitle }}
-        </b-nav-item>
-        <b-nav-item
-          to="/signin"
-          v-if="signInShow"
-        >
-          Sign In
-        </b-nav-item>
-      </b-navbar-nav>
+      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
-      <!-- Right aligned nav items -->
-      <b-navbar-nav class="ml-auto">
+      <b-navbar-brand href="#">
+        <img
+          src="@/assets/sacmusic.jpg"
+          class="d-inline-block align-top sac-logo"
+          alt="BV"
+          style="height: 50px; width: 50px;"
+        >
+        <span
+          style="position: relative; top: 10px; left: -40px;"
+          @click="navigateToSelf"
+        >
+          Sac Music
+        </span>
+      </b-navbar-brand>
 
-        <b-nav-form>
-          <b-form-input
-            size="sm"
-            class="mr-sm-2"
-            type="text"
-            placeholder="Search"
-          />
-          <b-button
+      <b-collapse
+        is-nav
+        id="nav_collapse"
+      >
+
+        <b-navbar-nav>
+          <b-nav-item
+            :to="navBar.link"
+            v-for="navBar in navBarIcons"
+            :key="navBar.navTitle"
+          >
+            {{ navBar.navTitle }}
+          </b-nav-item>
+          <b-nav-item
+            to="/signin"
+            v-if="signInShow"
+          >
+            Sign In
+          </b-nav-item>
+        </b-navbar-nav>
+
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto">
+
+          <b-nav-form>
+            <div>
+              <input
+                type="text"
+                placeholder="Search for songs"
+                class="form-control"
+                v-model="songName"
+                v-on:keyup.enter="inputSongName"
+              >
+              <!-- <b-dropdown
+                variant="link"
+                size="lg"
+                no-caret
+              >
+                <template slot="button-content">
+                  &#x1f50d;
+                  <span class="sr-only">Search</span>
+                </template>
+                <b-dropdown-item href="#">Action</b-dropdown-item>
+                <b-dropdown-item href="#">Another action</b-dropdown-item>
+                <b-dropdown-item href="#">Something else here...</b-dropdown-item>
+              </b-dropdown> -->
+            </div>
+            <!-- <b-button
             size="sm"
             class="my-2 my-sm-0"
             type="submit"
-          >Search</b-button>
-        </b-nav-form>
-
-        <!-- <b-nav-item-dropdown
+          >Search</b-button> -->
+          </b-nav-form>
+          <!-- <div class="search-div">
+            <ul
+              v-if="showSearch"
+              class="search-ul"
+            >
+              <li>hello</li>
+              <li>hello</li>
+              <li>hello</li>
+            </ul>
+          </div> -->
+          <!-- <b-nav-item-dropdown
           text="Lang"
           right
         >
@@ -126,34 +151,37 @@
           <b-dropdown-item href="#">FA</b-dropdown-item>
         </b-nav-item-dropdown> -->
 
-        <b-nav-item-dropdown right>
-          <!-- Using button-content slot -->
-          <template slot="button-content">
-            <em>User</em>
-          </template>
-          <b-dropdown-item to="/profile">Profile</b-dropdown-item>
-          <b-dropdown-item @click="navigateToHome">
-            Signout
-            <transition
-              @enter="userEnter"
-              @css="false"
-              appear
-            >
-              <i class="far fa-user-circle"></i>
-            </transition>
-          </b-dropdown-item>
-        </b-nav-item-dropdown>
-      </b-navbar-nav>
-    </b-collapse>
-  </b-navbar>
-
+          <b-nav-item-dropdown right>
+            <!-- Using button-content slot -->
+            <template slot="button-content">
+              <em>User</em>
+            </template>
+            <b-dropdown-item to="/profile">Profile</b-dropdown-item>
+            <b-dropdown-item @click="navigateToHome">
+              Signout
+              <transition
+                @enter="userEnter"
+                @css="false"
+                appear
+              >
+                <i class="far fa-user-circle"></i>
+              </transition>
+            </b-dropdown-item>
+          </b-nav-item-dropdown>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
+  </div>
 </template>
 
 <script>
 import Velocity from 'velocity-animate'
+import axios from 'axios'
 export default {
   data: () => ({
     iconEnter: false,
+    songName: '',
+    musicName: [],
     navBarIcons: [
       {
         navTitle: 'Home',
@@ -182,12 +210,23 @@ export default {
       }
     ]
   }),
+  created () {
+    axios.get('http://sacmusic.com/api/music')
+      .then(res => {
+        for (let m = 0; m < res.data.music.length; m++) {
+          this.musicName.push(res.data.music[m].song_name)
+        }
+      })
+  },
   computed: {
     signInShow () {
       return this.$store.getters.signInShow
     }
   },
   methods: {
+    inputSongName () {
+      this.$router.push('/searchedSong')
+    },
     userEnter (el, done) {
       setTimeout(() => {
         Velocity(el, {
@@ -239,6 +278,16 @@ export default {
 .nav-link {
   text-decoration: none;
   margin: 0 20px;
+}
+.search-drop {
+  position: relative;
+  left: -30px;
+}
+.form-control:focus {
+  border-color: none;
+}
+.form-control {
+  border-radius: none !important;
 }
 /* .nav-item {
   margin: 0 8px;

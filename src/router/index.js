@@ -12,6 +12,8 @@ import SignUp from '@/components/signup/SignUp.vue'
 import Profile from '@/components/userprofile/UserProfile.vue'
 import BrowseAlbum from '@/components/browsingalbum/BrowsingAlbum.vue'
 import OurVideo from '@/components/ourvideo/OurVideo.vue'
+import FeaturedSongs from '@/components/seemore/SeeMoreFeaturedSongs.vue'
+import SearchedSong from '@/components/searchedsong/SearchedSong.vue'
 
 Vue.use(Router)
 
@@ -76,6 +78,16 @@ export default new Router({
       path: '/video',
       name: 'OurVideo',
       component: OurVideo
+    },
+    {
+      path: '/featuredSongs',
+      name: 'FeaturedSongs',
+      component: FeaturedSongs
+    },
+    {
+      path: '/searchedSong',
+      name: 'SearchedSong',
+      component: SearchedSong
     }
   ]
 })

@@ -171,6 +171,9 @@ export default {
         rotateY: '360deg'
       }, {
         duration: 1500
+      })
+      Velocity(el, {
+        transform: origin
       }, {
         complete: done
       })
@@ -196,7 +199,7 @@ export default {
         duration: 4000
       })
       Velocity(el, {
-        scaleX: (1)
+        scaleX: 1
       },
       {
         duration: 1500
@@ -284,8 +287,8 @@ export default {
         duration: 2500
       })
       Velocity(el, {
-        rotateZ: '360deg',
-        rotateX: '360deg'
+        rotateZ: origin,
+        rotateX: origin
       }, {
         duration: 2000
       }, {

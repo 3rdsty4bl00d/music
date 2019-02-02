@@ -15,16 +15,16 @@
       <div>
         <b-card-group deck>
           <b-card
-            :header="'Album Title: ' + songTitle"
+            :header="'Album Title: ' + album[i].album_name"
             header-tag="header"
             :footer="'Price: Rs ' + price"
             footer-tag="footer"
             img-fluid="true"
-            v-for="trendingSongs in 4"
+            v-for="(trendingSongs, i) in 4"
             :key="trendingSongs"
           >
             <img
-              src="https://picsum.photos/200/300/?random"
+              :src="album[i].cover_image"
               alt="random"
               style="height: 200px; width: 220px; cursor: pointer;"
             >
@@ -48,13 +48,32 @@
 
 <script>
 /* import Velocity from 'velocity-animate' */
+import axios from 'axios'
 export default {
   data () {
     return {
       price: 1200,
-      songTitle: 'hello'
+      songTitle: 'hello',
+      album: []
     }
   },
+  created () {
+    axios.get('http://sacmusic.com/api/album')
+      .then(res => {
+        for (let i = 0; i < res.data.album.length; i++) {
+          this.album.push(res.data.album[i])
+        }
+        console.log(this.album.length)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  },
+  // computed: {
+  //   album () {
+  //     return this.$store.getters.album
+  //   }
+  // },
   methods: {
   }
 }

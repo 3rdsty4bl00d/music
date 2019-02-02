@@ -26,17 +26,20 @@
                   type="email"
                   placeholder="Enter Email"
                   class="form-control"
+                  v-model="email"
                 >
                 <input
                   type="password"
                   placeholder="Enter Password"
                   class="form-control"
                   style="margin-top: 10px; margin-bottom: 10px;"
+                  v-model="password"
                 >
                 <div class="sub-btn">
                   <button
                     class="btn btn-success"
                     type="submit"
+                    @click="showUser"
                   >Submit</button>
                   <button
                     class="btn btn-danger"
@@ -115,12 +118,24 @@
 
 <script>
 export default {
+  data () {
+    return {
+      email: '',
+      password: ''
+    }
+  },
   methods: {
     navigateToSignUp () {
       this.$router.push('/signup')
     },
     navigateToProfile () {
       this.$router.push('/profile')
+    },
+    showUser () {
+      this.$store.state.bottomSignInShow = false
+      this.$store.state.signInShow = false
+      this.$store.dispatch('setUserEmail', this.email)
+      this.$store.dispatch('setUserPassword', this.password)
     }
   },
   computed: {

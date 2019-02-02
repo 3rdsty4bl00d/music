@@ -22,10 +22,20 @@
       <div class="row form-group">
         <div class="col-xs-12 col-sm-12 col-md-12">
           <input
+            type="text"
+            placeholder="Name"
+            class="form-control"
+            v-model="userName"
+          >
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <input
             type="email"
             placeholder="Enter Email"
             class="form-control"
-            v-model="email"
+            v-model="userEmail"
           >
         </div>
       </div>
@@ -35,17 +45,7 @@
             type="password"
             placeholder="Enter Password"
             class="form-control"
-            v-model="password"
-          >
-        </div>
-      </div>
-      <div class="row form-group">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-          <input
-            type="password"
-            placeholder="Re-Enter Password"
-            class="form-control"
-            v-model="password"
+            v-model="userPassword"
           >
         </div>
       </div>
@@ -76,13 +76,15 @@
 
 <script>
 import Velocity from 'velocity-animate'
+import axios from 'axios'
 export default {
   data () {
     return {
       disSubmit: false,
       show: false,
-      email: '',
-      password: ''
+      userEmail: '',
+      userPassword: '',
+      userName: ''
     }
   },
   methods: {
@@ -128,14 +130,26 @@ export default {
       }, 1000)
     },
     navigateToHome () {
-      this.show = !this.show
-      this.disSubmit = !this.disSubmit
-      this.$store.state.signInShow = false
-      this.$store.dispatch('setUserEmail', this.email)
-      this.$store.dispatch('setUserPassword', this.password)
-      setTimeout(() => {
-        this.$router.push('/')
-      }, 5000)
+      axios.post('http://sacmusic.com/api/user/register',
+        {
+          name: this.userName,
+          email: this.userEmail,
+          password: this.userPassword
+        })
+        .then(res => {
+          console.log('register vais ta, solti rocks')
+          this.show = !this.show
+          this.disSubmit = !this.disSubmit
+          this.$store.state.signInShow = false
+          this.$store.dispatch('setUserEmail', this.userEmail)
+          this.$store.dispatch('setUserPassword', this.userPassword)
+          setTimeout(() => {
+            this.$router.push('/')
+          }, 5000)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     iconSubmitEnter (el, done) {
       Velocity(el, {

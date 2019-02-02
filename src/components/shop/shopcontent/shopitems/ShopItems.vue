@@ -14,22 +14,30 @@
           >
             <img
               class="card-img-top"
-              src="https://picsum.photos/200/300/?random"
+              :src="shop[i].cover_image"
               alt="Card image cap"
               style="height: 200px; width: 100%; cursor: pointer;"
               v-b-popover.hover="
-              'Album name: ' + shop[i].albumname
+              'Album name: ' + albumName[i]
               + '\nArtist: ' + shop[i].artist
               + '\nGenre: ' + shop[i].genre
               + '\nPrice: Rs ' + shop[i].price
               + '\nCLICK TO REMOVE'"
-              :title="'Song Title: ' + shop[i].name"
+              :title="'Song Title: ' + shop[i].song_name"
               @click="removeFromShop(i)"
             >
             <div class="card-body">
-              <p class="card-text"> {{ shop[i].name }} </p>
+              <p class="card-text"> {{ shop[i].song_name }} </p>
             </div>
           </div>
+        </div>
+      </div>
+      <div
+        class="row"
+        v-if="shop.length !== 0"
+      >
+        <div class="col-xs-12 col-sm-6 col-md-4">
+          <button class="btn btn-primary proceed">Proceed to payment</button>
         </div>
       </div>
     </div>
@@ -37,11 +45,31 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
+  data () {
+    return {
+      albumName: []
+    }
+  },
   computed: {
     shop () {
       return this.$store.getters.shop
     }
+  },
+  created () {
+    console.log(this.shop)
+    axios.get('http://sacmusic.com/api/album')
+      .then(res => {
+        console.log(res)
+        for (let i = 0; i < this.shop.length; i++) {
+          for (let j = 0; j < res.data.album.length; j++) {
+            if (this.shop[i].album_id === res.data.album[j].id) {
+              this.albumName.push(res.data.album[j].album_name)
+            }
+          }
+        }
+      })
   },
   methods: {
     removeFromShop (index) {
@@ -57,5 +85,11 @@ export default {
 }
 .card-deck {
   margin: 0 auto;
+}
+.proceed {
+  margin: 30px 50px;
+  border-radius: 20px;
+  padding: 15px;
+  font-size: 25px;
 }
 </style>

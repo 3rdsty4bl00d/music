@@ -11,36 +11,8 @@ export const store = new Vuex.Store({
     signInShow: true,
     bottomSignInShow: true,
     browseAlbum: [],
-    songs: [
-      {
-        name: 'hello',
-        albumname: 'world',
-        genre: 'classic',
-        price: 300,
-        artist: 'Shivam'
-      },
-      {
-        name: 'hello',
-        albumname: 'world',
-        genre: 'folk',
-        price: 300,
-        artist: 'Shivam'
-      },
-      {
-        name: 'hello',
-        albumname: 'world',
-        genre: 'rock',
-        price: 300,
-        artist: 'Shivam'
-      },
-      {
-        name: 'hello',
-        albumname: 'world',
-        genre: 'fusion',
-        price: 300,
-        artist: 'Shivam'
-      }
-    ]
+    songs: [],
+    album: []
   },
   mutations: {
     setToShop: (state, payload) => {
@@ -54,11 +26,22 @@ export const store = new Vuex.Store({
     },
     setPassword: (state, payload) => {
       state.userPassword = payload
+    },
+    setSongs: (state, payload) => {
+      state.songs = payload
+    },
+    setAlbum: (state, payload) => {
+      state.album = payload
     }
   },
   actions: {
     addToCart ({ commit, state }, payload) {
-      commit('setToShop', state.songs[payload])
+      for (let k = 0; k < state.songs.length; k++) {
+        if (state.songs[k].id === payload) {
+          let shopping = state.songs[k]
+          commit('setToShop', shopping)
+        }
+      }
     },
     removeFromCart ({ commit }, payload) {
       commit('removeToShop', payload)
@@ -68,6 +51,12 @@ export const store = new Vuex.Store({
     },
     setUserPassword ({ commit }, payload) {
       commit('setPassword', payload)
+    },
+    addSongs ({ commit }, payload) {
+      commit('setSongs', payload)
+    },
+    addAlbum ({ commit }, payload) {
+      commit('setAlbum', payload)
     }
   },
   getters: {
@@ -79,6 +68,7 @@ export const store = new Vuex.Store({
     userPassword: state => state.userpassword,
     signInShow: state => state.signInShow,
     bottomSignInShow: state => state.bottomSignInShow,
-    browseAlbum: state => state.browseAlbum
+    browseAlbum: state => state.browseAlbum,
+    album: state => state.album
   }
 })

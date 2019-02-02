@@ -12,39 +12,64 @@
       >
         <img
           class="card-img-top"
-          src="https://picsum.photos/200/300/?random"
+          :src="songs[i].cover_image"
           alt="Card image cap"
           style="height: 200px; width: 223px; cursor: pointer;"
           v-b-popover.hover="
-              'Album name: ' + songs[i].albumname
-              + '\nArtist: ' + songs[i].artist
+              '\nArtist: ' + songs[i].artist
               + '\nGenre: ' + songs[i].genre
-              + '\nPrice: Rs ' + songs[i].price
               + '\nCLICK TO ADD TO CART'"
-          :title="'Song Title: ' + songs[i].name"
+          :title="'Song Title: ' + songs[i].song_name"
           @click="addToShop(i)"
         >
         <div class="card-body">
-          <p class="card-text"> {{ songs[i].name }} </p>
+          <p class="card-text"> {{ songs[i].song_name }} </p>
         </div>
       </div>
+    </div>
+    <div>
+
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
+  data () {
+    return {
+      songs: []
+    }
+  },
   created () {
-    console.log(this.songs)
+    axios.get('http://sacmusic.com/api/music')
+      .then(res => {
+        console.log(res.data.music)
+        this.songs = res.data.music
+      })
+      .catch(error => {
+        console.log(error)
+      })
   },
   computed: {
-    songs () {
+    /* songs () {
       return this.$store.getters.songs
-    }
+    } */
   },
   methods: {
     addToShop (index) {
-      this.$store.dispatch('addToCart', index)
+      axios.get('http://sacmusic.com/api/music')
+        .then(res => {
+          console.log(res.data.music)
+          for (let j = 0; j < res.data.music.length; j++) {
+            if (this.songs[index].id === res.data.music[j].id) {
+              this.$store.dispatch('addToCart', res.data.music[j].id)
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }

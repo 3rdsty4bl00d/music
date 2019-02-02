@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
-        <h1>Trending Songs
+        <h1>Featured Songs
         </h1>
       </div>
     </div>
@@ -24,20 +24,20 @@
         >
           <img
             class="card-img-top"
-            :src="songs[i].cover_image"
+            :src="featuredSongs[i].cover_image"
             alt="Card image cap"
             style="height: 200px; width: 223px; cursor: pointer;"
             v-b-popover.hover="
               'Album name: ' + albumName[i]
-              + '\nArtist: ' + songs[i].artist
-              + '\nGenre: ' + songs[i].genre
-              + '\nPrice: Rs ' + songs[i].price
+              + '\nArtist: ' + featuredSongs[i].artist
+              + '\nGenre: ' + featuredSongs[i].genre
+              + '\nPrice: Rs ' + featuredSongs[i].price
               + '\nCLICK TO ADD TO CART'"
-            :title="'Song Title: ' + songs[i].song_name"
+            :title="'Song Title: ' + featuredSongs[i].song_name"
             @click="addToShop(i)"
           >
           <div class="card-body">
-            <p class="card-text"> {{ songs[i].song_name }} </p>
+            <p class="card-text"> {{ featuredSongs[i].song_name }} </p>
           </div>
         </div>
       </div>
@@ -51,7 +51,8 @@ export default {
   data () {
     return {
       songs: [],
-      albumName: []
+      albumName: [],
+      featuredSongs: []
     }
   },
   created () {
@@ -59,12 +60,17 @@ export default {
       .then(res => {
         console.log(res.data.music)
         this.songs = res.data.music
+        for (let i = 0; i < this.songs.length; i++) {
+          if (this.songs[i].is_featured === 1) {
+            this.featuredSongs.push(this.songs[i])
+          }
+        }
         axios.get('http://sacmusic.com/api/album')
           .then(res => {
             console.log(res.data.album)
-            for (let i = 0; i < this.songs.length; i++) {
+            for (let i = 0; i < this.featuredSongs.length; i++) {
               for (let j = 0; j < res.data.album.length; j++) {
-                if (this.songs[i].album_id === res.data.album[j].id) {
+                if (this.featuredSongs[i].album_id === res.data.album[j].id) {
                   this.albumName.push(res.data.album[j].album_name)
                 }
               }
@@ -90,7 +96,7 @@ export default {
         .then(res => {
           console.log(res.data.music)
           for (let j = 0; j < res.data.music.length; j++) {
-            if (this.songs[index].id === res.data.music[j].id) {
+            if (this.featuredSongs[index].id === res.data.music[j].id) {
               this.$store.dispatch('addToCart', res.data.music[j].id)
             }
           }
