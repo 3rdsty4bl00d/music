@@ -261,4 +261,12 @@ export default {
 .song-alb__section {
   margin: 15px 0;
 }
+@media (min-width: 320px) and (max-width: 480px) {
+  .container {
+    width: 320px;
+    margin-right: 0;
+    padding: 0;
+    left: -40px;
+  }
+}
 </style>

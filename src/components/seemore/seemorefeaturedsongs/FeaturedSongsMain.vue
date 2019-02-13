@@ -50,7 +50,7 @@
     </div> -->
     <div class="row featured-row">
       <div
-        class="col-xs-12 col-sm-6 col-md-6"
+        class="col-xs-12 col-sm-12 col-md-6"
         v-for="(feature, i) in featuredSongs"
         :key="feature"
       >
@@ -177,6 +177,7 @@ export default {
 <style scoped>
 .container {
   margin: 76px 55px;
+  position: relative;
 }
 .all-songs {
   position: relative;
@@ -260,5 +261,18 @@ export default {
 }
 .featured-song__card:hover .play-btn {
   opacity: 1;
+}
+@media (min-width: 320px) and (max-width: 480px) {
+  .card-details__song {
+    margin-top: 220px;
+  }
+  .card-detail__parent {
+    width: 320px;
+  }
+  .container {
+    width: 320px;
+    margin-right: 0;
+    left: -40px;
+  }
 }
 </style>

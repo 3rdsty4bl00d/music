@@ -64,7 +64,7 @@
         <div class="card one-song__card">
           <div class="container-fluid">
             <div class="row">
-              <div class="col-xs-12 col-sm-2 col-md-2 maintain-line">
+              <div class="col-xs-12 col-sm-12 col-md-2 maintain-line">
                 <img
                   :src="songs[i].cover_image"
                   alt="trending image"
@@ -83,26 +83,26 @@
                   v-if="songs[i].song"
                 >
               </div> -->
-              <div class="col-xs-12 col-sm-3 col-md-3 maintain-line">
+              <div class="col-xs-12 col-sm-12 col-md-3 maintain-line">
                 <p class="song-title">Song Title:</p>
                 <p class="song-details"> {{ songs[i].song_name }} </p>
               </div>
-              <div class="col-xs-12 col-sm-1 col-md-1 maintain-line">
+              <div class="col-xs-12 col-sm-12 col-md-1 maintain-line">
                 <p class="song-title">Genre:</p>
                 <p
                   class="song-details"
                   style="font-size: 15px;"
                 > {{ songs[i].genre }} </p>
               </div>
-              <div class="col-xs-12 col-sm-2 col-md-2 maintain-line">
+              <div class="col-xs-12 col-sm-12 col-md-2 maintain-line">
                 <p class="song-title">Artist:</p>
                 <p class="song-details"> {{ songs[i].artist }} </p>
               </div>
-              <div class="col-xs-12 col-sm-3 col-md-3 maintain-line">
+              <div class="col-xs-12 col-sm-12 col-md-3 maintain-line">
                 <p class="song-title">Album Name:</p>
                 <p class="song-details"> {{ albumName[i] }} </p>
               </div>
-              <div class="col-xs-12 col-sm-1 col-md-1 maintain-line">
+              <div class="col-xs-12 col-sm-12 col-md-1 maintain-line">
                 <button
                   class="btn add-btn"
                   @click="addToShop(i)"
@@ -285,6 +285,9 @@ export default {
   left: 20px;
   margin-bottom: 55px;
 }
+.one-song__card {
+  position: relative;
+}
 /* .trending-song__card {
   transition: all 1s ease;
   background-color: rgb(91, 175, 243);
@@ -295,6 +298,14 @@ export default {
 @media (min-width: 768px) and (max-width: 992px) {
   .maintain-line {
     display: inline-block;
+  }
+}
+@media (min-width: 320px) and (max-width: 480px) {
+  .one-song__card {
+    left: -60px;
+  }
+  .container {
+    width: 320px;
   }
 }
 </style>

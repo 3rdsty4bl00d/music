@@ -177,5 +177,16 @@ export default {
 }
 .each-album__row {
   margin: 15px 0;
+  position: relative;
+}
+@media (min-width: 320px) and (max-width: 480px) {
+  .container {
+    width: 320px;
+    margin-right: 0;
+    padding: 0;
+  }
+  .each-album__row {
+    left: -100px;
+  }
 }
 </style>

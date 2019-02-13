@@ -85,7 +85,6 @@ export default {
 .main-card {
   padding: 15px;
   position: relative;
-  left: -10px;
 }
 .card-deck {
   margin: 0 auto;
