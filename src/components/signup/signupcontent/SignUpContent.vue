@@ -137,15 +137,39 @@ export default {
           password: this.userPassword
         })
         .then(res => {
-          console.log('register vais ta, solti rocks')
-          this.show = !this.show
-          this.disSubmit = !this.disSubmit
-          this.$store.state.signInShow = false
-          this.$store.dispatch('setUserEmail', this.userEmail)
-          this.$store.dispatch('setUserPassword', this.userPassword)
-          setTimeout(() => {
-            this.$router.push('/')
-          }, 5000)
+          // console.log('register vais ta, solti rocks')
+          // this.show = !this.show
+          // this.disSubmit = !this.disSubmit
+          // this.$store.state.signInShow = false
+          // this.$store.dispatch('setUserEmail', this.userEmail)
+          // this.$store.dispatch('setUserPassword', this.userPassword)
+          // setTimeout(() => {
+          //   this.$router.push('/')
+          // }, 5000)
+          axios.post('http://sacmusic.com/api/user/login',
+            {
+              name: this.userName,
+              email: this.userEmail,
+              password: this.userPassword
+            })
+            .then(res => {
+              // console.log(res.data.token)
+              this.token = res.data.token
+              this.$store.dispatch('addUserToken', this.token)
+              // console.log(this.token)
+              this.show = !this.show
+              this.disSubmit = !this.disSubmit
+              this.$store.state.signInShow = false
+              this.$store.state.bottomSignInShow = false
+              this.$store.dispatch('setUserEmail', this.userEmail)
+              this.$store.dispatch('setUserPassword', this.userPassword)
+              setTimeout(() => {
+                this.$router.push('/')
+              }, 5000)
+            })
+            .catch(error => {
+              console.log(error)
+            })
         })
         .catch(err => {
           console.log(err)

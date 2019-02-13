@@ -56,9 +56,8 @@
   <div>
     <b-navbar
       toggleable="md"
-      type="dark"
-      variant="dark"
       fixed="top"
+      class="main-nav"
     >
 
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
@@ -73,6 +72,7 @@
         <span
           style="position: relative; top: 10px; left: -40px;"
           @click="navigateToSelf"
+          class="nav-topic"
         >
           Sac Music
         </span>
@@ -83,20 +83,26 @@
         id="nav_collapse"
       >
 
-        <b-navbar-nav>
+        <b-navbar-nav class="nav-link__mar">
           <b-nav-item
             :to="navBar.link"
             v-for="navBar in navBarIcons"
             :key="navBar.navTitle"
+            class="nav-mar__topic"
           >
-            {{ navBar.navTitle }}
+            <span class="nav-topic">
+              {{ navBar.navTitle }}
+            </span>
           </b-nav-item>
-          <b-nav-item
+          <!-- <b-nav-item
             to="/signin"
             v-if="signInShow"
+            class="nav-mar__topic"
           >
-            Sign In
-          </b-nav-item>
+            <span class="nav-topic">
+              Sign In
+            </span>
+          </b-nav-item> -->
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -104,13 +110,46 @@
 
           <b-nav-form>
             <div>
-              <input
-                type="text"
-                placeholder="Search for songs"
-                class="form-control"
-                v-model="songName"
-                v-on:keyup.enter="inputSongName"
+              <button
+                class="btn search-btn"
+                v-if="showSearching"
+                @click="searchShow"
               >
+                <i class="fas fa-search"></i>
+              </button>
+              <div
+                v-if="showSearchingButton"
+                class="search-list-main"
+              >
+                <input
+                  type="text"
+                  placeholder="Search for songs"
+                  class="form-control input-width"
+                  v-model="songName"
+                  @keypress.enter="inputSongName"
+                  @click="musicListShow = true"
+                >
+                <div
+                  class="search-list"
+                  v-if="musicListShow"
+                >
+                  <ul class="search-ul">
+                    <li
+                      v-for="(name, i) in filteredSongList"
+                      :key="name"
+                      class="search-li"
+                      @click="goToNameInputer(name)"
+                    > {{ name }} </li>
+                  </ul>
+                </div>
+                <button
+                  class="btn search-btn"
+                  v-if="showSearchingButton"
+                  @click="dontSearch"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
               <!-- <b-dropdown
                 variant="link"
                 size="lg"
@@ -150,24 +189,48 @@
           <b-dropdown-item href="#">RU</b-dropdown-item>
           <b-dropdown-item href="#">FA</b-dropdown-item>
         </b-nav-item-dropdown> -->
-
-          <b-nav-item-dropdown right>
-            <!-- Using button-content slot -->
-            <template slot="button-content">
-              <em>User</em>
-            </template>
-            <b-dropdown-item to="/profile">Profile</b-dropdown-item>
-            <b-dropdown-item @click="navigateToHome">
-              Signout
-              <transition
-                @enter="userEnter"
-                @css="false"
-                appear
-              >
-                <i class="far fa-user-circle"></i>
-              </transition>
-            </b-dropdown-item>
-          </b-nav-item-dropdown>
+          <div v-if="!signInShow">
+            <b-nav-item-dropdown right>
+              <!-- Using button-content slot -->
+              <template slot="button-content">
+                <em style="color: rgb(228, 225, 225);">
+                  <i class="fas fa-user"></i>
+                  User</em>
+              </template>
+              <b-dropdown-item to="/profile">Profile</b-dropdown-item>
+              <b-dropdown-item @click="navigateToHome">
+                Signout
+                <transition
+                  @enter="userEnter"
+                  @css="false"
+                  appear
+                >
+                  <i class="far fa-user-circle"></i>
+                </transition>
+              </b-dropdown-item>
+            </b-nav-item-dropdown>
+          </div>
+          <div
+            class="nav-mar__topic"
+            v-else
+          >
+            <button
+              class="btn signin-btn"
+              @click="goToRegister"
+            >
+              <span class="nav-topic">
+                Register
+              </span>
+            </button>
+            <button
+              class="btn signin-btn"
+              @click="goToSignIn"
+            >
+              <span class="nav-topic">
+                Sign In
+              </span>
+            </button>
+          </div>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -182,6 +245,8 @@ export default {
     iconEnter: false,
     songName: '',
     musicName: [],
+    showSign: false,
+    musicListShow: false,
     navBarIcons: [
       {
         navTitle: 'Home',
@@ -218,12 +283,60 @@ export default {
         }
       })
   },
+  // watch: {
+  //   songName (val) {
+  //     for (let i = 0; i < this.musicName.length; i++) {
+  //       if (this.musicName[i] = this.songName) {
+  //         this.songName = val
+  //       }
+  //     }
+  //   }
+  // },
   computed: {
     signInShow () {
       return this.$store.getters.signInShow
+    },
+    showSearching () {
+      return this.$store.getters.showSearching
+    },
+    showSearchingButton () {
+      return this.$store.getters.showSearchingButton
+    },
+    filteredSongList () {
+      return this.musicName.filter((element) => {
+        return element.match(this.songName)
+      })
     }
   },
   methods: {
+    goToSignIn () {
+      this.showSign = !this.showSign
+      this.$router.push('/signin')
+    },
+    goToRegister () {
+      this.showSign = !this.showSign
+      this.$router.push('/signup')
+    },
+    searchShow () {
+      this.$store.commit('setShowSearching', false)
+      this.$store.commit('setShowSearchingButton', true)
+    },
+    dontSearch () {
+      this.$store.commit('setShowSearching', true)
+      this.$store.commit('setShowSearchingButton', false)
+      this.musicListShow = false
+    },
+    goToNameInputer (selectedSongName) {
+      for (let i = 0; i < this.musicName.length; i++) {
+        if (selectedSongName === this.musicName[i]) {
+          this.songName = this.musicName[i]
+        }
+      }
+      this.musicListShow = false
+      // console.log(this.songName)
+      this.$store.dispatch('addSearchSong', this.songName)
+      // this.$router.push('/searchedSong')
+    },
     inputSongName () {
       this.$router.push('/searchedSong')
     },
@@ -275,10 +388,6 @@ export default {
 .sac-logo:hover {
   transform: rotateX(360deg);
 }
-.nav-link {
-  text-decoration: none;
-  margin: 0 20px;
-}
 .search-drop {
   position: relative;
   left: -30px;
@@ -289,6 +398,68 @@ export default {
 .form-control {
   border-radius: none !important;
 }
+.nav-topic {
+  color: rgb(228, 225, 225);
+}
+.navbar-expand-md .navbar-nav .nav-link {
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+}
+.nav-link {
+  text-decoration: none;
+  /* border-left: 1px solid rgb(1, 6, 54);
+  border-radius: 20%; */
+  /* border-right: 1px solid black; */
+  margin: 0 8px;
+}
+.input-width {
+  width: 420px;
+}
+.search-btn {
+  background-color: transparent;
+  color: rgb(223, 219, 219);
+}
+.signin-btn {
+  background-color: transparent;
+}
+.main-nav {
+  background-color: #247ba0;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.8);
+}
+.search-list-main {
+  position: relative;
+  box-sizing: border-box;
+}
+.search-list {
+  position: absolute;
+  background-color: rgb(250, 249, 249);
+  border: none;
+  border-radius: 10px;
+  width: 420px;
+  padding: 5px;
+  top: 45px;
+}
+.search-ul {
+  list-style: none;
+  padding: 0;
+}
+/* .search-ul:hover {
+} */
+.search-li {
+  margin: none;
+  padding: 10px;
+}
+.search-li:hover {
+  cursor: pointer;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.8);
+  transform: scale(1.02);
+}
+@media (min-width: 768px) and (max-width: 992px) {
+  .input-width {
+    width: 50px;
+  }
+}
+
 /* .nav-item {
   margin: 0 8px;
 }

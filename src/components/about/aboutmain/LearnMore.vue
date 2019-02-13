@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card learn-more__card">
     <div class="container learn-more">
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -130,5 +130,16 @@ export default {
 <style scoped>
 .learn-more {
   padding: 15px;
+  color: white;
+}
+.card {
+  background-image: url('../../../assets/contact2.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+@media (min-width: 420px) and (max-width: 600px) {
+  .learn-more__card {
+    width: 390px;
+  }
 }
 </style>

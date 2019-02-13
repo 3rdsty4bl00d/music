@@ -6,15 +6,11 @@
       :key="i"
       style="margin-bottom: 30px;"
     >
-      <div
-        class="card"
-        style="width: 18rem;"
-      >
+      <div class="card fusion-music__filter">
         <img
           class="card-img-top"
           :src="fusionSongs[i].cover_image"
           alt="Card image cap"
-          style="height: 200px; width: 223px; cursor: pointer;"
           v-b-popover.hover="
               'Album name: ' + albumName[i]
               + '\nArtist: ' + fusionSongs[i].artist
@@ -24,6 +20,12 @@
           :title="'Song Title: ' + fusionSongs[i].song_name"
           @click="addToShop(i)"
         >
+        <button
+          class="btn btn-primary play-btn"
+          @click.prevent="playSound(fusionSongs[i].song)"
+        >
+          <i class="fas fa-play"></i>
+        </button>
         <div class="card-body">
           <p class="card-text"> {{ fusionSongs[i].song_name }} </p>
         </div>
@@ -80,6 +82,15 @@ export default {
     }
   }, */
   methods: {
+    playSound (sound) {
+      if (sound) {
+        var audio = new Audio(sound)
+        audio.play()
+        setTimeout(() => {
+          audio.pause()
+        }, 20000)
+      }
+    },
     addToShop (index) {
       axios.get('http://sacmusic.com/api/music')
         .then(res => {
@@ -102,5 +113,56 @@ export default {
 .all-songs {
   position: relative;
   left: 9%;
+}
+.play-btn {
+  position: absolute;
+  top: 35%;
+  left: -2px;
+  transform: translateX(90px);
+  opacity: 0;
+  transition: all 0.5s ease;
+  background-color: rgb(65, 201, 24);
+  border: none;
+}
+.fusion-music__filter:hover .play-btn {
+  opacity: 1;
+}
+.fusion-music__filter {
+  border: none;
+  background-color: rgb(255, 255, 255);
+  transition: all 0.5s ease;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 1);
+  width: 18rem;
+}
+.fusion-music__filter:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 1);
+}
+.card-body {
+  background-color: rgb(94, 146, 243);
+}
+.card-img-top {
+  height: 220px;
+  width: 223px;
+  cursor: pointer;
+}
+@media (min-width: 768px) and (max-width: 992px) {
+  .card-img-top {
+    height: 150px;
+    width: 120px;
+  }
+  .play-btn {
+    top: 55px;
+    left: -50px;
+  }
+}
+@media (min-width: 320px) and (max-width: 480px) {
+  .fusion-music__filter {
+    width: 223px;
+  }
+  .all-songs {
+    left: 60px;
+    width: 290px;
+  }
 }
 </style>

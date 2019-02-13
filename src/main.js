@@ -5,10 +5,14 @@ import App from './App'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
 import { store } from '@/components/store/index.js'
+import AudioVisual from 'vue-audio-visual'
+import Vuetify from 'vuetify'
 
 Vue.config.productionTip = false
 
 Vue.use(BootstrapVue)
+Vue.use(AudioVisual)
+Vue.use(Vuetify)
 
 /* eslint-disable no-new */
 new Vue({

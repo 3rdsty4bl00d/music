@@ -8,15 +8,11 @@
           :key="i"
           style="margin-bottom: 30px;"
         >
-          <div
-            class="card"
-            style="width: 18rem;"
-          >
+          <div class="card shop-card__item">
             <img
               class="card-img-top"
               :src="shop[i].cover_image"
               alt="Card image cap"
-              style="height: 200px; width: 100%; cursor: pointer;"
               v-b-popover.hover="
               'Album name: ' + albumName[i]
               + '\nArtist: ' + shop[i].artist
@@ -37,7 +33,10 @@
         v-if="shop.length !== 0"
       >
         <div class="col-xs-12 col-sm-6 col-md-4">
-          <button class="btn btn-primary proceed">Proceed to payment</button>
+          <button
+            class="btn btn-primary proceed"
+            @click="proceedToPayment"
+          >Proceed to payment</button>
         </div>
       </div>
     </div>
@@ -74,6 +73,9 @@ export default {
   methods: {
     removeFromShop (index) {
       this.$store.dispatch('removeFromCart', index)
+    },
+    proceedToPayment () {
+      this.$router.push('/payment')
     }
   }
 }
@@ -82,6 +84,8 @@ export default {
 <style scoped>
 .main-card {
   padding: 15px;
+  position: relative;
+  left: -10px;
 }
 .card-deck {
   margin: 0 auto;
@@ -91,5 +95,29 @@ export default {
   border-radius: 20px;
   padding: 15px;
   font-size: 25px;
+}
+.card-img-top {
+  height: 200px;
+  width: 100%;
+  cursor: pointer;
+}
+.shop-card__item {
+  width: 18rem;
+}
+@media (min-width: 768px) and (max-width: 992px) {
+  .card-img-top {
+    height: 140px;
+  }
+}
+@media (min-width: 320px) and (max-width: 480px) {
+  .shop-card__item {
+    width: 10rem;
+  }
+  .main-card {
+    width: 300px;
+  }
+  .proceed {
+    margin: 0;
+  }
 }
 </style>

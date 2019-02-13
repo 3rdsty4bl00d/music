@@ -14,6 +14,7 @@ import BrowseAlbum from '@/components/browsingalbum/BrowsingAlbum.vue'
 import OurVideo from '@/components/ourvideo/OurVideo.vue'
 import FeaturedSongs from '@/components/seemore/SeeMoreFeaturedSongs.vue'
 import SearchedSong from '@/components/searchedsong/SearchedSong.vue'
+import Payment from '@/components/payment/Payment.vue'
 
 Vue.use(Router)
 
@@ -88,6 +89,11 @@ export default new Router({
       path: '/searchedSong',
       name: 'SearchedSong',
       component: SearchedSong
+    },
+    {
+      path: '/payment',
+      name: 'Payment',
+      component: Payment
     }
   ]
 })

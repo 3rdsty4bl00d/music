@@ -9,8 +9,10 @@
     <main>
       <!-- <app-home-h class="home-app"></app-home-h> -->
       <app-carousel-home class="home-app"></app-carousel-home>
-      <app-trending-songs style="margin-bottom: 90px;"></app-trending-songs>
-      <b-card style="margin-bottom: 90px;">
+      <b-card class="trending-song__card">
+        <app-trending-songs></app-trending-songs>
+      </b-card>
+      <b-card class="trending-album__card">
         <app-trending-albums></app-trending-albums>
       </b-card>
       <app-featured-songs style="margin-bottom: 90px;"></app-featured-songs>
@@ -52,7 +54,20 @@ export default {
 </script>
 
 <style scoped>
-.home-app {
+/* .home-app {
   margin-bottom: 30px;
+} */
+.card-body {
+  padding: 0;
 }
+.trending-album__card {
+  background-image: url('../../assets/album1.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+/* .trending-song__card {
+  background-image: url('../../assets/song.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+} */
 </style>

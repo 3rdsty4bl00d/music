@@ -69,4 +69,15 @@ export default {
 .second-about {
   padding: 15px;
 }
+.card {
+  background-image: url('../../../assets/about-first-3.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  color: rgb(255, 255, 255);
+}
+@media (min-width: 420px) and (max-width: 600px) {
+  .second-about {
+    width: 390px;
+  }
+}
 </style>

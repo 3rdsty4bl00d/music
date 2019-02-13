@@ -1,7 +1,7 @@
 <template>
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12">
-      <div class="card first-about">
+  <div class="row card-parent-parent">
+    <div class="col-xs-12 col-sm-12 col-md-12 card-parent">
+      <div class="card first-about img-fluid">
         <div class="container">
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -10,7 +10,7 @@
                 @css="false"
                 appear
               >
-                <h1> {{ firstHeading }} </h1>
+                <h1 class="about-heading__title"> {{ firstHeading }} </h1>
               </transition>
             </div>
           </div>
@@ -99,5 +99,22 @@ export default {
 <style scoped>
 .first-about {
   padding: 15px;
+}
+.card {
+  background-image: url('../../../assets/about-first-2.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  color: rgb(255, 255, 255);
+}
+@media (min-width: 420px) and (max-width: 600px) {
+  .first-about {
+    width: 420px;
+  }
+  .card-parent {
+    width: 420px;
+  }
+  .card-parent-parent {
+    width: 420px;
+  }
 }
 </style>

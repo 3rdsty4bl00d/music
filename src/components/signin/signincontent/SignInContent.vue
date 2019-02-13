@@ -45,7 +45,7 @@
             type="password"
             placeholder="Enter Password"
             class="form-control"
-            v-model="UserPassword"
+            v-model="userPassword"
           >
         </div>
       </div>
@@ -82,9 +82,17 @@ export default {
     return {
       disSubmit: false,
       show: false,
-      email: '',
-      password: ''
+      token: '',
+      userName: '',
+      userPassword: '',
+      userEmail: ''
     }
+  },
+  created () {
+    axios.get('http://sacmusic.com/api/user')
+      .then(res => {
+        console.log(res)
+      })
   },
   methods: {
     iconEnter (el, done) {
@@ -129,6 +137,16 @@ export default {
       }, 1000)
     },
     navigateToHome () {
+      // this.$store.state.signInShow = false
+      // this.$store.state.bottomSignInShow = false
+      // this.$store.dispatch('setUserPassword', this.userPassword)
+      // this.$store.dispatch('setUserEmail', this.userEmail)
+      // this.$router.push('/')
+
+      // axios.post('http://sacmusic.com/api/user/login')
+      // console.log(this.userName)
+      // console.log(this.userEmail)
+      // console.log(this.userPassword)
       axios.post('http://sacmusic.com/api/user/login',
         {
           name: this.userName,
@@ -136,7 +154,10 @@ export default {
           password: this.userPassword
         })
         .then(res => {
-          console.log(res)
+          // console.log(res.data.token)
+          this.token = res.data.token
+          this.$store.dispatch('addUserToken', this.token)
+          console.log(this.token)
           this.show = !this.show
           this.disSubmit = !this.disSubmit
           this.$store.state.signInShow = false
@@ -147,8 +168,9 @@ export default {
             this.$router.push('/')
           }, 5000)
         })
-        .catch(err => {
-          console.log(err)
+        .catch(error => {
+          console.log(error)
+          alert('Please enter a valid user email and password')
         })
     },
     iconSubmitEnter (el, done) {

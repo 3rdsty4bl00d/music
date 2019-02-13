@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container content-container">
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-6">
         <transition
@@ -7,7 +7,7 @@
           @css="false"
           appear
         >
-          <h1>Items you bought...</h1>
+          <h3 class="shop-heading">Items you bought...</h3>
         </transition>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-6">
@@ -16,7 +16,7 @@
           @css="false"
           appear
         >
-          <h1>Total: {{shop.length}} </h1>
+          <h3 class="shop-heading">Total: {{shop.length}} </h3>
         </transition>
       </div>
     </div>
@@ -76,10 +76,18 @@ export default {
 
 <style scoped>
 .container {
-  margin: 90px 55px;
+  margin: 76px 55px;
 }
 .all-shop {
   position: relative;
   left: 3%;
+}
+.shop-heading {
+  margin-top: 40px;
+}
+@media (min-width: 320px) and (max-width: 480px) {
+  .content-container {
+    width: 320px;
+  }
 }
 </style>

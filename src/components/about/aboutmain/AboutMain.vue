@@ -1,24 +1,24 @@
 <template>
   <div class="container about-all">
-    <div class="row">
+    <div class="row about-all--title">
       <div class="col-xs-12 col-sm-12 col-md-12">
         <transition
           @enter="aboutEnter"
           @css="false"
           appear
         >
-          <h1>About Us</h1>
+          <h3 class="about-heading__title">About Us</h3>
         </transition>
       </div>
     </div>
-    <div class="row">
+    <div class="row about-all__hor-line">
       <div class="col-xs-12 col-sm-6 col-md-4">
         <transition
           @enter="horizontalLineEnter"
           @css="false"
           appear
         >
-          <hr>
+          <hr class="hor-line">
         </transition>
       </div>
     </div>
@@ -29,10 +29,7 @@
     >
       <app-first-about></app-first-about>
     </transition>
-    <div
-      class="row"
-      style="margin-top: 20px;"
-    >
+    <div class="row about-all__second-about">
       <div class="col-xs-12 col-sm-6 col-md-6">
         <transition
           @enter="secondEnter"
@@ -52,10 +49,7 @@
         </transition>
       </div>
     </div>
-    <div
-      class="row"
-      style="margin-top: 20px;"
-    >
+    <div class="row about-all__services">
       <div class="col-xs-12 col-sm-12 col-md-12">
         <transition
           @enter="servicesEnter"
@@ -66,10 +60,7 @@
         </transition>
       </div>
     </div>
-    <div
-      class="row"
-      style="margin-top: 20px;"
-    >
+    <div class="row about-all__learnmore">
       <div class="col-xs-12 col-sm-12 col-md-12">
         <transition
           @enter="learnEnter"
@@ -154,10 +145,77 @@ export default {
 
 <style scoped>
 .container {
-  margin: 90px 55px;
+  margin: 76px 55px;
 }
 .about-all {
   position: relative;
   left: 3%;
+}
+.about-heading__title {
+  margin-top: 40px;
+}
+.hor-line {
+  width: 34%;
+  position: relative;
+  left: -115px;
+  margin-bottom: 55px;
+}
+.about-all__services {
+  margin-top: 20px;
+}
+.about-all__learnmore {
+  margin-top: 20px;
+}
+.about-all__second-about {
+  margin-top: 20px;
+}
+@media (min-width: 768px) and (max-width: 992px) {
+  .hor-line {
+    left: -40px;
+    width: 120px;
+  }
+  .about-all {
+    left: -10px;
+  }
+}
+@media (min-width: 600px) and (max-width: 767px) {
+  .about-all {
+    left: -10px;
+  }
+  .hor-line {
+    left: -55px;
+    width: 120px;
+  }
+}
+@media (min-width: 420px) and (max-width: 599px) {
+  .about-all {
+    left: -10px;
+    width: 420px;
+  }
+  .hor-line {
+    width: 130px;
+    left: -135px;
+  }
+  .about-all__hor-line {
+    width: 420px;
+  }
+  .about-all__second-about {
+    width: 420px;
+  }
+  .about-all__services {
+    width: 420px;
+  }
+  .about-all__learnmore {
+    width: 420px;
+  }
+  .about-all--title {
+    width: 420px;
+  }
+}
+@media (min-width: 320px) and (max-width: 419px) {
+  .about-all {
+    width: 320px;
+    left: -15px;
+  }
 }
 </style>

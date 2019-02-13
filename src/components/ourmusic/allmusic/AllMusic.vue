@@ -1,14 +1,11 @@
 <template>
   <div id="all-music">
-    <div class="container">
-      <div
-        class="row"
-        style="margin-bottom: 30px; position: relative; left: 9%;"
-      >
+    <div class="container all-music__container">
+      <div class="row filter-row__title">
         <div class="col-xs-12 col-sm-12 col-md-12">
           <div>
             <button
-              class="btn btn-dark"
+              class="btn btn-dark btn-margin__color"
               @click="showed"
             >
               <i class="fas fa-filter"></i>
@@ -22,23 +19,23 @@
                 class="genre-list"
               >
                 <li class="genre-btn"><button
-                    class="btn btn-dark"
+                    class="btn btn-dark btn-btn"
                     @click="all"
                   >All</button></li>
                 <li class="genre-btn"><button
-                    class="btn btn-dark"
+                    class="btn btn-dark btn-btn"
                     @click="classical"
                   >Classical</button></li>
                 <li class="genre-btn"><button
-                    class="btn btn-dark"
+                    class="btn btn-dark btn-btn"
                     @click="folk"
                   >Folk</button></li>
                 <li class="genre-btn"><button
-                    class="btn btn-dark"
+                    class="btn btn-dark btn-btn"
                     @click="rock"
                   >Rock</button></li>
                 <li class="genre-btn"><button
-                    class="btn btn-dark"
+                    class="btn btn-dark btn-btn"
                     @click="fusion"
                   >Fusion</button></li>
               </ul>
@@ -179,18 +176,66 @@ export default {
 
 <style scoped>
 .container {
-  margin: 90px 55px;
+  margin: 76px 55px;
 }
 .genre-list {
-  display: flex !important;
-  background-color: #343a40;
+  background-color: #4ea0f1;
   margin-top: 20px;
   width: 90%;
   border-radius: 5px;
 }
 .genre-btn {
   margin: 10px 25px;
+  background-color: #4ea0f1;
   text-decoration: none;
   list-style: none;
+}
+li {
+  display: inline-block;
+}
+.btn-dark {
+  background-color: #4ea0f1;
+  border: none;
+}
+.btn-margin__color {
+  margin-top: 40px;
+  background-color: #4ea0f1;
+  border: none;
+  color: rgb(248, 245, 245);
+}
+.filter-row__title {
+  margin-bottom: 30px;
+  position: relative;
+  left: 9%;
+}
+@media (min-width: 768px) and (max-width: 992px) {
+  .all-music__container {
+    width: 768px;
+    margin: 0;
+  }
+  .filter-row__title {
+    width: 108px;
+    margin-top: 80px;
+  }
+  .genre-list {
+    background-color: transparent;
+  }
+}
+@media (min-width: 320px) and (max-width: 480px) {
+  .all-music__container {
+    width: 360px;
+    margin: 0;
+  }
+  .filter-row__title {
+    width: 360px;
+    margin-top: 80px;
+  }
+  .genre-list {
+    background-color: transparent;
+  }
+  li {
+    display: block;
+    width: 90px;
+  }
 }
 </style>

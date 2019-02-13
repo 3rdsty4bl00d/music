@@ -10,11 +10,21 @@ export const store = new Vuex.Store({
     userPassword: '',
     signInShow: true,
     bottomSignInShow: true,
+    showSearching: true,
+    showSearchingButton: false,
     browseAlbum: [],
     songs: [],
-    album: []
+    album: [],
+    userToken: '',
+    searchSong: ''
   },
   mutations: {
+    setShowSearching: (state, payload) => {
+      state.showSearching = payload
+    },
+    setShowSearchingButton: (state, payload) => {
+      state.showSearchingButton = payload
+    },
     setToShop: (state, payload) => {
       state.shop.push(payload)
     },
@@ -32,6 +42,12 @@ export const store = new Vuex.Store({
     },
     setAlbum: (state, payload) => {
       state.album = payload
+    },
+    setUserToken: (state, payload) => {
+      state.userToken = payload
+    },
+    setSearchSong: (state, payload) => {
+      state.searchSong = payload
     }
   },
   actions: {
@@ -57,6 +73,12 @@ export const store = new Vuex.Store({
     },
     addAlbum ({ commit }, payload) {
       commit('setAlbum', payload)
+    },
+    addUserToken ({ commit }, payload) {
+      commit('setUserToken', payload)
+    },
+    addSearchSong ({ commit }, payload) {
+      commit('setSearchSong', payload)
     }
   },
   getters: {
@@ -69,6 +91,10 @@ export const store = new Vuex.Store({
     signInShow: state => state.signInShow,
     bottomSignInShow: state => state.bottomSignInShow,
     browseAlbum: state => state.browseAlbum,
-    album: state => state.album
+    album: state => state.album,
+    showSearching: state => state.showSearching,
+    showSearchingButton: state => state.showSearchingButton,
+    userToken: state => state.userToken,
+    searchSong: state => state.searchSong
   }
 })

@@ -13,17 +13,17 @@
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
     >
-      <b-carousel-slide style="height: 100vh; width: 100vw;">
+      <b-carousel-slide class="slide-cara">
         <img
           slot="img"
           class="d-block img-fluid w-100 image-cara"
           width="100%"
           height="100%"
-          :src="imageSlide[0]"
+          src="../../assets/buddha.jpg"
           alt="image slot"
         >
       </b-carousel-slide>
-      <b-carousel-slide style="height: 100vh; width: 100vw;">
+      <b-carousel-slide class="slide-cara">
         <img
           slot="img"
           class="d-block img-fluid w-100 image-cara"
@@ -33,7 +33,7 @@
           alt="image slot"
         >
       </b-carousel-slide>
-      <b-carousel-slide style="height: 100vh; width: 100vw;">
+      <b-carousel-slide class="slide-cara">
         <img
           slot="img"
           class="d-block img-fluid w-100 image-cara"
@@ -43,13 +43,13 @@
           alt="image slot"
         >
       </b-carousel-slide>
-      <b-carousel-slide style="height: 100vh; width: 100vw;">
+      <b-carousel-slide class="slide-cara">
         <img
           slot="img"
           class="d-block img-fluid w-100 image-cara"
           width="100%"
           height="100%"
-          :src="imageSlide[3]"
+          :src="imageSlide[15]"
           alt="image slot"
         >
       </b-carousel-slide>
@@ -155,6 +155,7 @@ export default {
         for (let i = 0; i < res.data.music.length; i++) {
           this.imageSlide.push(res.data.music[i].cover_image)
         }
+        console.log(this.imageSlide)
       })
       .catch(err => {
         console.log(err)
@@ -175,5 +176,17 @@ export default {
 .image-cara {
   height: 100vh;
   width: 100vw;
+}
+.slide-cara {
+  height: 100vh;
+  width: 100vw;
+}
+@media (min-width: 768px) and (max-width: 992px) {
+  .image-cara {
+    height: 550px;
+  }
+  .slide-cara {
+    height: 550px;
+  }
 }
 </style>

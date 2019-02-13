@@ -31,10 +31,9 @@
             appear
           >
             <li
-              class="card"
               v-for="service in services"
               :key="service"
-              style="margin-top: 10px; background-color: #343a40; color: #fff;"
+              style="margin-top: 10px; color: #1f2e2e;"
             >
               {{ service }}
             </li>
@@ -88,5 +87,15 @@ export default {
 <style scoped>
 .services {
   padding: 15px;
+}
+.services {
+  background-image: url('../../../assets/services1.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+@media (min-width: 420px) and (max-width: 600px) {
+  .services {
+    width: 390px;
+  }
 }
 </style>

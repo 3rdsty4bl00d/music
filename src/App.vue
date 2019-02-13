@@ -35,5 +35,8 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+#app {
+  background-color: rgb(248, 248, 248);
+}
 </style>

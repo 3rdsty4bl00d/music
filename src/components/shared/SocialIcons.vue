@@ -173,6 +173,7 @@ export default {
 }
 
 .facebook {
+  position: relative;
   background: #3b5998;
   color: white;
 }
@@ -195,5 +196,10 @@ export default {
 .youtube {
   background: #bb0000;
   color: white;
+}
+@media (min-width: 768px) and (max-width: 992px) {
+  /* .facebook {
+    top: -120px;
+  } */
 }
 </style>
